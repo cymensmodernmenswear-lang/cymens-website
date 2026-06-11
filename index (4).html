@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYMENS — Modern Menswear</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --grey-100: #f5f5f5;
+    --grey-200: #e8e8e8;
+    --grey-400: #999;
+    --grey-600: #555;
+    --accent: #0a0a0a;
+    --wa: #25D366;
+    --radius: 2px;
+    --transition: 0.2s ease;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-200);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+  }
+  .logo span { font-weight: 300; letter-spacing: 0.1em; }
+  nav a {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    margin-left: 28px;
+    opacity: 0.7;
+    transition: opacity var(--transition);
+  }
+  nav a:hover { opacity: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 24px 72px;
+    text-align: center;
+    background: var(--white);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--grey-400);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: normal; font-weight: 300; }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--grey-600);
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+  .hero-sub strong { display: block; }
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 13px 28px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid var(--black);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--black);
+  }
+  .btn:hover, .btn.primary { background: var(--black); color: var(--white); }
+  .btn.primary:hover { background: #333; border-color: #333; }
+
+  /* ── TRUST ── */
+  .trust {
+    background: var(--grey-100);
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 720px;
+    margin: 0 auto 64px;
+    border-radius: 4px;
+  }
+  @media(min-width:600px){ .trust { grid-template-columns: repeat(4, 1fr); } }
+  .trust-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .trust-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .trust-icon svg { width: 28px; height: 28px; }
+  .trust-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  /* ── PRODUCTS ── */
+  .section-title {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--grey-400);
+    margin-bottom: 36px;
+  }
+  .products {
+    padding: 0 24px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media(min-width:600px){ .products-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .product-card {
+    cursor: pointer;
+    border: 1px solid var(--grey-200);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: box-shadow var(--transition);
+  }
+  .product-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+  .product-card-img {
+    background: var(--grey-100);
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+  }
+  .product-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .product-card:hover .product-card-img img { transform: scale(1.04); }
+  .product-card-info {
+    padding: 18px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .product-card-name {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .product-card-type {
+    font-size: 11px;
+    color: var(--grey-400);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .product-card-price {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .product-card-cta {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+  .product-card-cta:hover { background: #333; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+  @media(min-width:700px){
+    .modal-overlay { align-items: center; padding: 24px; }
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    width: 100%;
+    max-width: 860px;
+    max-height: 92dvh;
+    border-radius: 4px 4px 0 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    animation: slideUp 0.28s ease;
+    position: relative;
+  }
+  @media(min-width:700px){
+    .modal { border-radius: 4px; max-height: 90vh; }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    border: 1px solid var(--grey-200);
+    border-radius: 50%;
+    background: var(--white);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+    transition: background var(--transition);
+  }
+  .modal-close:hover { background: var(--grey-100); }
+  .modal-close svg { width: 14px; height: 14px; }
+
+  .modal-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media(min-width:700px){
+    .modal-inner { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* gallery */
+  .modal-gallery { background: var(--grey-100); padding: 24px; }
+  .main-image-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 3px;
+    cursor: zoom-in;
+    background: var(--grey-100);
+  }
+  .main-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    transform-origin: var(--zoom-x,50%) var(--zoom-y,50%);
+    display: block;
+  }
+  .main-image-wrap.zoomed { cursor: zoom-out; }
+  .main-image-wrap.zoomed img { transform: scale(2); }
+
+  .thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .thumb {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color var(--transition);
+    background: var(--grey-200);
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb.active { border-color: var(--black); }
+  .thumb-label {
+    font-size: 10px;
+    text-align: center;
+    margin-top: 4px;
+    color: var(--grey-400);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* product info panel */
+  .modal-info {
+    padding: 32px 28px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .modal-product-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .modal-product-sub {
+    font-size: 11px;
+    color: var(--grey-400);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    margin-bottom: 24px;
+  }
+  .modal-price {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 28px;
+  }
+
+  .option-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+  .option-label span { font-weight: 400; color: var(--grey-400); margin-left: 6px; }
+
+  /* color swatches */
+  .color-swatches {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .swatch {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition: outline-color var(--transition), transform var(--transition);
+    position: relative;
+  }
+  .swatch:hover { transform: scale(1.1); }
+  .swatch.active { outline-color: var(--black); }
+  .swatch[data-color="black"]      { background: #0a0a0a; }
+  .swatch[data-color="white"]      { background: #f5f5f5; border: 2px solid #ccc; }
+  .swatch[data-color="maroon"]     { background: #7B1C1C; }
+  .swatch[data-color="light-grey"] { background: #C0C0C0; }
+  .swatch[data-color="dark-grey"]  { background: #4A4A4A; }
+  .swatch[data-color="lemon-yellow"]  { background: #FFF176; border: 2px solid #ccc; }
+  .swatch[data-color="bottle-green"]  { background: #1B5E20; }
+
+  /* size buttons */
+  .size-btns {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .size-btn {
+    width: 48px; height: 48px;
+    border: 1.5px solid var(--grey-200);
+    background: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: border-color var(--transition), background var(--transition), color var(--transition);
+    text-transform: uppercase;
+  }
+  .size-btn:hover { border-color: var(--black); }
+  .size-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+  /* quantity */
+  .qty-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 28px;
+    border: 1.5px solid var(--grey-200);
+    border-radius: var(--radius);
+    width: fit-content;
+    overflow: hidden;
+  }
+  .qty-btn {
+    width: 44px; height: 44px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--black);
+    transition: background var(--transition);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qty-btn:hover { background: var(--grey-100); }
+  .qty-val {
+    width: 48px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    border-left: 1.5px solid var(--grey-200);
+    border-right: 1.5px solid var(--grey-200);
+    line-height: 44px;
+  }
+
+  /* WhatsApp button */
+  .wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 24px;
+    background: var(--wa);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--transition), transform var(--transition);
+    width: 100%;
+  }
+  .wa-btn:hover { background: #1ebe5a; transform: translateY(-1px); }
+  .wa-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* ── MARKETPLACE ── */
+  .marketplace {
+    padding: 56px 24px 64px;
+    text-align: center;
+    background: var(--grey-100);
+    border-top: 1px solid var(--grey-200);
+  }
+  .marketplace .section-title { margin-bottom: 8px; }
+  .marketplace-sub {
+    font-size: 13px;
+    color: var(--grey-400);
+    margin-bottom: 32px;
+  }
+  .marketplace-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .mkt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 22px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .mkt-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+  .mkt-btn svg, .mkt-btn img { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* Brand colors */
+  .mkt-btn.meesho   { background: #f43397; color: #fff; border-color: #f43397; }
+  .mkt-btn.amazon   { background: #FF9900; color: #111; border-color: #FF9900; }
+  .mkt-btn.flipkart { background: #2874f0; color: #fff; border-color: #2874f0; }
+  .mkt-btn.instagram{
+    background: linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--grey-200);
+    padding: 40px 24px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--grey-400);
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+  .footer-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .footer-wa svg { color: var(--wa); }
+  footer small {
+    display: block;
+    margin-top: 28px;
+    font-size: 11px;
+    color: var(--grey-400);
+    letter-spacing: 0.06em;
+  }
+
+  /* scrollbar */
+  .modal::-webkit-scrollbar { width: 4px; }
+  .modal::-webkit-scrollbar-thumb { background: var(--grey-200); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <a class="logo" href="#">CYMENS <span>Modern Menswear</span></a>
+  <nav>
+    <a href="#products">Shop</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-eyebrow">Est.Direct manufacture</p>
+  <h1>CYMENS <em>Modern</em><br>Menswear</h1>
+  <p class="hero-sub">
+    <strong>Premium Cotton T-Shirts</strong>
+    Factory Direct Pricing &nbsp;·&nbsp; PAN India Delivery
+  </p>
+  <div class="btn-row">
+    <button class="btn primary" onclick="openModal('roundneck')">Shop Round Neck</button>
+    <button class="btn" onclick="openModal('polo')">Shop Polo</button>
+  </div>
+</section>
+
+<!-- ── TRUST ── -->
+<div class="trust">
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+        <path d="M8 12l3 3 5-5"/>
+      </svg>
+    </div>
+    <span class="trust-label">Cotton</span>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+        <line x1="12" y1="12" x2="12" y2="16"/>
+        <line x1="10" y1="14" x2="14" y2="14"/>
+      </svg>
+    </div>
+    <span class="trust-label">Direct from Manufacturer</span>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="1 4 1 10 7 10"/>
+        <path d="M3.51 15a9 9 0 1 0 .49-3"/>
+      </svg>
+    </div>
+    <span class="trust-label">Easy Exchange</span>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="3" width="15" height="13" rx="1"/>
+        <path d="M16 8h4l3 5v3h-7V8z"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/>
+        <circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+    </div>
+    <span class="trust-label">PAN India Shipping</span>
+  </div>
+</div>
+
+<!-- ── PRODUCTS ── -->
+<section class="products" id="products">
+  <p class="section-title">Our Collection</p>
+  <div class="products-grid">
+
+    <!-- Round Neck -->
+    <div class="product-card" onclick="openModal('roundneck')">
+      <div class="product-card-img">
+        <img src="images/roundneck/black/front.png" alt="Round Neck T-Shirt" id="card-img-roundneck">
+      </div>
+      <div class="product-card-info">
+        <div>
+          <div class="product-card-name">Round Neck T-Shirt</div>
+          <div class="product-card-type">5 Colors · M / L / XL</div>
+        </div>
+        <div class="product-card-price">₹299</div>
+      </div>
+      <button class="product-card-cta">View & Order</button>
+    </div>
+
+    <!-- Polo -->
+    <div class="product-card" onclick="openModal('polo')">
+      <div class="product-card-img">
+        <img src="images/polo/black/front.png" alt="Polo T-Shirt" id="card-img-polo">
+      </div>
+      <div class="product-card-info">
+        <div>
+          <div class="product-card-name">Polo T-Shirt</div>
+          <div class="product-card-type">4 Colors · M / L / XL</div>
+        </div>
+        <div class="product-card-price">₹349</div>
+      </div>
+      <button class="product-card-cta">View & Order</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+      </svg>
+    </button>
+    <div class="modal-inner">
+
+      <!-- Gallery -->
+      <div class="modal-gallery">
+        <div class="main-image-wrap" id="main-img-wrap">
+          <img id="main-img" src="" alt="Product image">
+        </div>
+        <div class="thumbnails" id="thumbnails">
+          <div>
+            <div class="thumb active" data-view="front" onclick="setView('front')">
+              <img id="thumb-front" src="" alt="Front">
+            </div>
+            <div class="thumb-label">Front</div>
+          </div>
+          <div>
+            <div class="thumb" data-view="back" onclick="setView('back')">
+              <img id="thumb-back" src="" alt="Back">
+            </div>
+            <div class="thumb-label">Back</div>
+          </div>
+          <div>
+            <div class="thumb" data-view="side" onclick="setView('side')">
+              <img id="thumb-side" src="" alt="Side">
+            </div>
+            <div class="thumb-label">Side</div>
+          </div>
+          <div>
+            <div class="thumb" data-view="detail" onclick="setView('detail')">
+              <img id="thumb-detail" src="" alt="Detail">
+            </div>
+            <div class="thumb-label">Detail</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="modal-info">
+        <div class="modal-product-name" id="modal-name"></div>
+        <div class="modal-product-sub" id="modal-sub"></div>
+        <div class="modal-price" id="modal-price"></div>
+
+        <div class="option-label">Color <span id="color-label-val"></span></div>
+        <div class="color-swatches" id="color-swatches"></div>
+
+        <div class="option-label">Size</div>
+        <div class="size-btns" id="size-btns">
+          <button class="size-btn active" data-size="M" onclick="setSize(this)">M</button>
+          <button class="size-btn" data-size="L" onclick="setSize(this)">L</button>
+          <button class="size-btn" data-size="XL" onclick="setSize(this)">XL</button>
+        </div>
+
+        <div class="option-label">Quantity</div>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <div class="qty-val" id="qty-val">1</div>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+
+        <a class="wa-btn" id="wa-btn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Order on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MARKETPLACE ── -->
+<section class="marketplace">
+  <p class="section-title">Also Available On</p>
+  <p class="marketplace-sub">Shop us on your favourite platform</p>
+  <div class="marketplace-btns">
+
+    <!-- Meesho -->
+    <a class="mkt-btn meesho" href="https://www.meesho.com/CYMENSMODERNMENSWEAR?ms=2&fbclid=PAb21jcASXGmdleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAacMGlgSVubPBXNT1aM1RQAd0tQs5J78VF1eKKfTs6ge34PYRy1LSQ_fdLgmzw_aem_cVLYhusM57CXBZYUcyKeig" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.25"/>
+        <text x="4" y="17" font-size="11" font-weight="800" fill="white" font-family="Arial">M</text>
+        <circle cx="17" cy="8" r="4" fill="white" fill-opacity="0.3"/>
+        <path d="M14 14c0-2.2 1.34-4 3-4s3 1.8 3 4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Meesho
+    </a>
+
+    <!-- Amazon -->
+    <a class="mkt-btn amazon" href="https://www.amazon.in/s?me=A3TF85QIS6KOZR&marketplaceID=A21TJRUUN4KGV" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.23 10.56C13.23 11.3 13.25 11.92 12.9 12.58C12.61 13.12 12.14 13.45 11.61 13.45C10.9 13.45 10.48 12.92 10.48 12.13C10.48 10.57 11.88 10.29 13.23 10.29V10.56ZM15.12 15.18C14.99 15.29 14.81 15.3 14.66 15.22C13.97 14.64 13.84 14.36 13.46 13.82C12.29 15.01 11.47 15.38 9.96 15.38C8.17 15.38 6.78 14.27 6.78 12.08C6.78 10.36 7.71 9.19 9.04 8.63C10.2 8.13 11.82 8.04 13.04 7.9V7.63C13.04 7.1 13.08 6.47 12.76 6.01C12.49 5.6 11.96 5.43 11.5 5.43C10.63 5.43 9.86 5.87 9.67 6.79C9.63 7 9.47 7.21 9.26 7.22L7.47 7.03C7.28 6.99 7.07 6.84 7.12 6.55C7.54 4.34 9.55 3.69 11.36 3.69C12.28 3.69 13.49 3.93 14.23 4.64C15.17 5.52 15.08 6.7 15.08 7.98V11.04C15.08 11.97 15.47 12.38 15.84 12.88C15.97 13.07 16 13.29 15.84 13.42C15.44 13.76 14.71 14.38 14.32 14.72L14.31 14.71L15.12 15.18ZM19.22 16.64C17.13 18.19 14.09 19 11.48 19C7.83 19 4.54 17.63 2.07 15.37C1.88 15.2 2.05 14.96 2.28 15.09C4.95 16.66 8.26 17.61 11.68 17.61C14.02 17.61 16.6 17.13 18.98 16.14C19.35 15.98 19.65 16.39 19.22 16.64ZM20.13 15.6C19.87 15.27 18.37 15.45 17.69 15.53C17.49 15.55 17.46 15.38 17.64 15.25C18.84 14.41 20.81 14.65 21.03 14.92C21.25 15.19 20.97 17.16 19.84 18.1C19.67 18.24 19.5 18.17 19.58 17.98C19.83 17.36 20.39 15.93 20.13 15.6Z"/>
+      </svg>
+      Amazon
+    </a>
+
+    <!-- Flipkart -->
+    <a class="mkt-btn flipkart" href="https://www.flipkart.com/cymens-solid-men-polo-neck-black-t-shirt/p/itm080c1216c4910?pid=TSHHZ4HKHNDGNQTV" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm7 2.5l-4 4.5h2.5V15h3V10H16L12 5.5z"/>
+      </svg>
+      Flipkart
+    </a>
+
+    <!-- Instagram -->
+    <a class="mkt-btn instagram" href="https://www.instagram.com/cymens_modern_menswear?igsh=NzY1OG45Znh2ZW90" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      Instagram
+    </a>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">CYMENS <span style="font-weight:300;letter-spacing:0.1em">Modern Menswear</span></div>
+  <div class="footer-tagline">Factory Direct Menswear</div>
+  <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;">
+    <a class="footer-wa" href="https://wa.me/919892842791" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      +91 98928 42791
+    </a>
+    <a class="footer-wa" href="YOUR_INSTAGRAM_LINK_HERE" target="_blank" rel="noopener" style="background:none;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="url(#ig-grad)">
+        <defs>
+          <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f9ce34"/>
+            <stop offset="50%" stop-color="#ee2a7b"/>
+            <stop offset="100%" stop-color="#6228d7"/>
+          </linearGradient>
+        </defs>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      @CYMENS_MODERN_MENSWEAR
+    </a>
+  </div>
+  <small>© 2026 CYMENS Modern Menswear. All rights reserved.</small>
+</footer>
+
+<script>
+  const PRODUCTS = {
+    roundneck: {
+      name: 'Round Neck T-Shirt',
+      sub: 'Premium Cotton · Unisex Fit',
+      price: '₹299',
+      priceRaw: 299,
+      colors: [
+        { key: 'black',      label: 'Black' },
+        { key: 'white',      label: 'White' },
+        { key: 'maroon',     label: 'Maroon' },
+        { key: 'light-grey', label: 'Light Grey' },
+        { key: 'dark-grey',  label: 'Dark Grey' },
+      ],
+      defaultColor: 'black'
+    },
+    polo: {
+      name: 'Polo T-Shirt',
+      sub: 'Premium Cotton · Regular Fit',
+      price: '₹349',
+      priceRaw: 349,
+      colors: [
+        { key: 'black',        label: 'Black' },
+        { key: 'white',        label: 'White' },
+        { key: 'lemon-yellow', label: 'Lemon Yellow' },
+        { key: 'bottle-green', label: 'Bottle Green' },
+      ],
+      defaultColor: 'black'
+    }
+  };
+
+  const VIEWS = ['front', 'back', 'side', 'detail'];
+
+  let state = {
+    product: null,
+    color: null,
+    size: 'M',
+    qty: 1,
+    view: 'front'
+  };
+
+  function imgPath(product, color, view) {
+    return `images/${product}/${color}/${view}.png`;
+  }
+
+  function openModal(productKey) {
+    const p = PRODUCTS[productKey];
+    state.product  = productKey;
+    state.color    = p.defaultColor;
+    state.size     = 'M';
+    state.qty      = 1;
+    state.view     = 'front';
+
+    document.getElementById('modal-name').textContent  = p.name;
+    document.getElementById('modal-sub').textContent   = p.sub;
+    document.getElementById('modal-price').textContent = p.price;
+
+    // size reset
+    document.querySelectorAll('.size-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.size === 'M');
+    });
+
+    // qty reset
+    document.getElementById('qty-val').textContent = '1';
+
+    // render swatches
+    const swatchContainer = document.getElementById('color-swatches');
+    swatchContainer.innerHTML = '';
+    p.colors.forEach(c => {
+      const el = document.createElement('div');
+      el.className = 'swatch' + (c.key === p.defaultColor ? ' active' : '');
+      el.dataset.color = c.key;
+      el.dataset.label = c.label;
+      el.title = c.label;
+      el.onclick = () => setColor(el, c.key, c.label);
+      swatchContainer.appendChild(el);
+    });
+
+    document.getElementById('color-label-val').textContent = labelFor(p.defaultColor, p.colors);
+    updateImages();
+    updateWALink();
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+    // remove zoom
+    const wrap = document.getElementById('main-img-wrap');
+    wrap.classList.remove('zoomed');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  function labelFor(colorKey, colors) {
+    const c = colors.find(x => x.key === colorKey);
+    return c ? c.label : colorKey;
+  }
+
+  function setColor(el, colorKey, colorLabel) {
+    state.color = colorKey;
+    state.view  = 'front';
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('color-label-val').textContent = colorLabel;
+    updateImages();
+    updateWALink();
+    // remove zoom on color change
+    document.getElementById('main-img-wrap').classList.remove('zoomed');
+  }
+
+  function setView(view) {
+    state.view = view;
+    document.querySelectorAll('.thumb').forEach(t => {
+      t.classList.toggle('active', t.dataset.view === view);
+    });
+    document.getElementById('main-img').src = imgPath(state.product, state.color, view);
+  }
+
+  function setSize(btn) {
+    state.size = btn.dataset.size;
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updateWALink();
+  }
+
+  function changeQty(delta) {
+    state.qty = Math.max(1, state.qty + delta);
+    document.getElementById('qty-val').textContent = state.qty;
+    updateWALink();
+  }
+
+  function updateImages() {
+    VIEWS.forEach(v => {
+      const img = document.getElementById('thumb-' + v);
+      if (img) img.src = imgPath(state.product, state.color, v);
+    });
+    document.getElementById('main-img').src = imgPath(state.product, state.color, state.view);
+    // reset active thumb to current view
+    document.querySelectorAll('.thumb').forEach(t => {
+      t.classList.toggle('active', t.dataset.view === state.view);
+    });
+  }
+
+  function updateWALink() {
+    if (!state.product) return;
+    const p = PRODUCTS[state.product];
+    const colorLabel = labelFor(state.color, p.colors);
+    const msg = `Hello CYMENS,\n\nProduct: ${p.name}\nColor: ${colorLabel}\nSize: ${state.size}\nQuantity: ${state.qty}\n\nI want to place an order.`;
+    const url = `https://wa.me/919892842791?text=${encodeURIComponent(msg)}`;
+    document.getElementById('wa-btn').href = url;
+  }
+
+  // Image zoom (desktop only)
+  const mainWrap = document.getElementById('main-img-wrap');
+  mainWrap.addEventListener('click', function(e) {
+    if (window.innerWidth < 700) return;
+    const rect = this.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%';
+    const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1) + '%';
+    this.style.setProperty('--zoom-x', x);
+    this.style.setProperty('--zoom-y', y);
+    this.classList.toggle('zoomed');
+  });
+
+  // Keyboard close
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
